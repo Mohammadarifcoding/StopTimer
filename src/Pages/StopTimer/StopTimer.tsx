@@ -4,8 +4,14 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Timer } from '@/src/lib/types';
 import { Slot } from '@radix-ui/react-slot';
+import TimerCard from '@/src/components/TimerCard';
+import manageTime from '@/src/lib/manageTime';
+import { access } from '@/app/page';
 
-const StopTimer = ({timers}: {timers: Timer[]}) => {
+
+
+
+const StopTimer = ({timers, access}: {timers: Timer[], access :access }) => {
 
       // Update running timers every second
 
@@ -29,7 +35,7 @@ const StopTimer = ({timers}: {timers: Timer[]}) => {
               transition={{ duration: 0.3 }}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
-              {/* <AnimatePresence>
+              <AnimatePresence>
                 {timers.map((timer) => (
                   <motion.div
                     key={timer.id}
@@ -40,14 +46,14 @@ const StopTimer = ({timers}: {timers: Timer[]}) => {
                   >
                     <TimerCard
                       timer={timer}
-                      onStart={() => startTimer(timer.id)}
-                      onPause={() => pauseTimer(timer.id)}
-                      onReset={() => resetTimer(timer.id)}
-                      onDelete={() => deleteTimer(timer.id)}
+                      onStart={() => access.startTimer(timer.id)}
+                      onPause={() => access.pauseTimer(timer.id)}
+                      onReset={() => access.resetTimer(timer.id)}
+                      onDelete={() => access.deleteTimer(timer.id)}
                     />
                   </motion.div>
                 ))}
-              </AnimatePresence> */}
+              </AnimatePresence>
             </motion.div>
           )}
         </AnimatePresence>

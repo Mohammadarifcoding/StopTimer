@@ -120,7 +120,8 @@ const manageTime = {
     pauseTimer,
     resetTimer, 
     deleteTimer,
-    setTimes
+    setTimes,
+    getRandomColor
 };
 
 export default manageTime

@@ -12,14 +12,14 @@ import manageTime from "@/src/lib/manageTime";
 import { PlusCircle } from "lucide-react";
 import React, { useState } from "react";
 
-const CreateTimer = ({ children }: React.PropsWithChildren) => {
+const CreateTimer = ({ children ,createTime}:{ children : React.ReactNode, createTime :(name:string)=>void}) => {
   const [newTimerName, setNewTimerName] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { toast } = useToast();
 
   const createTimer = () => {
     if (newTimerName.trim() !== "") {
-      manageTime.createTimer(newTimerName);
+      createTime(newTimerName);
       toast({
         title: "Timer Created",
         description: `"${newTimerName}" was added successfully.`,
