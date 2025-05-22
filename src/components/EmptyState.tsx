@@ -4,12 +4,8 @@ import { motion } from 'framer-motion';
 import { Clock, PlusCircle } from 'lucide-react';
 import CreateTimer from '../shared/Create/CreateTimer';
 
-interface EmptyStateProps {
-  onCreateClick: () => void
-}
 
-
-export default function EmptyState({ onCreateClick }: EmptyStateProps) {
+export default function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center py-16 px-4 border-2 border-dashed border-gray-800 rounded-xl bg-gray-900">
       <motion.div
@@ -45,6 +41,7 @@ export default function EmptyState({ onCreateClick }: EmptyStateProps) {
         <CreateTimer>
 
           <Button
+
             className="bg-purple-600 hover:bg-purple-700 text-white border-0 gap-2 px-6 py-6 text-lg"
           >
             <PlusCircle className="h-5 w-5" />

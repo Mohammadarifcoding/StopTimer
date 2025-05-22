@@ -7,49 +7,53 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useToast } from "@/src/hooks/use-toast";
 import manageTime from "@/src/lib/manageTime";
+import { PlusCircle } from "lucide-react";
 import React, { useState } from "react";
 
 const CreateTimer = ({ children }: React.PropsWithChildren) => {
   const [newTimerName, setNewTimerName] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { toast } = useToast();
 
   const createTimer = () => {
     if (newTimerName.trim() !== "") {
       manageTime.createTimer(newTimerName);
+      toast({
+        title: "Timer Created",
+        description: `"${newTimerName}" was added successfully.`,
+      });
       setNewTimerName("");
       setIsDialogOpen(false);
     }
   };
+
   return (
-    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen} >
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="bg-gray-900 border border-gray-800 text-white max-w-[90%] rounded-xl">
+      <DialogContent className="bg-white dark:bg-gray-900 border-none rounded-2xl p-6 shadow-xl w-full max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-white">Create New Timer</DialogTitle>
+          <DialogTitle className="text-lg font-semibold text-center text-gray-900 dark:text-white">
+            New Timer
+          </DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="timer-name" className="text-gray-300">
-              Timer Name
-            </Label>
-            <Input
-              id="timer-name"
-              placeholder="e.g., Coding, Reading, Exercise"
-              value={newTimerName}
-              onChange={(e) => setNewTimerName(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") createTimer();
-              }}
-              className="bg-gray-800 border-gray-700 text-white"
-            />
-          </div>
+
+        <div className="flex items-center gap-2">
+          <Input
+            autoFocus
+            placeholder="Enter timer name..."
+            value={newTimerName}
+            onChange={(e) => setNewTimerName(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && createTimer()}
+            className="bg-gray-100 w-[calc(100%-50px)] dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-purple-500"
+          />
+
           <Button
             onClick={createTimer}
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white border-0"
+            className="w-[50px] bg-purple-600 hover:bg-purple-700 text-white rounded-lg "
           >
-            Create Timer
+            <PlusCircle className="h-5 w-5" />
           </Button>
         </div>
       </DialogContent>

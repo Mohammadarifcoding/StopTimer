@@ -1,7 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import EmptyState from "@/src/components/EmptyState";
@@ -11,35 +17,41 @@ import { Timer } from "@/src/lib/types";
 import { AnimatePresence } from "framer-motion";
 import { Clock, PlusCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import Image from "next/image";
 import logo from "@/src/assets/logo/logo.png";
 import Logo from "@/src/shared/Logo";
 import Navbar from "@/src/shared/Navbar/Navbar";
-
+import manageTime from "@/src/lib/manageTime";
+import StopTimer from "@/src/Pages/StopTimer/StopTimer";
 
 export default function Home() {
-  const [timers, setTimers] = useState<Timer[]>([])
-  const [newTimerName, setNewTimerName] = useState("")
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const { toast } = useToast()
+  const [timers, setTimers] = useState<Timer[]>([]);
+  const [newTimerName, setNewTimerName] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const { toast } = useToast();
 
   // Load timers from localStorage on initial render
-  // useEffect(() => {
-  //   const savedTimers = localStorage.getItem("timers")
-  //   if (savedTimers) {
-  //     try {
-  //       setTimers(JSON.parse(savedTimers))
-  //     } catch (error) {
-  //       console.error("Failed to parse saved timers", error)
-  //     }
-  //   }
-  // }, [])
+  useEffect(() => {
+    const savedTimers = manageTime.getTimers();
+    if (savedTimers.length > 0) {
+      try {
+        setTimers([...savedTimers]);
+      } catch (error) {
+        toast({
+          title: "Error loading timers",
+          description:
+            "There was an error loading your timers. Please try again.",
+          variant: "destructive",
+        });
+      }
+    }
+  }, []);
 
   // // Save timers to localStorage whenever they change
-  // useEffect(() => {
-  //   localStorage.setItem("timers", JSON.stringify(timers))
-  // }, [timers])
+  useEffect(() => {
+    manageTime.setTimes(timers)
+  }, [timers])
 
   // // Update running timers every second
   // useEffect(() => {
@@ -138,92 +150,11 @@ export default function Home() {
   // }
 
   return (
-
-   <div className="min-h-screen bg-gray-950 text-white bg-background dot-pattern">
-      {/* <header className="bg-gray-900 border-b border-gray-800 sticky top-0 z-10">
-        <div className="container max-w-5xl mx-auto p-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-<Logo />
-            <h1 className="text-xl font-bold text-white">StopTimer</h1>
-          </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="bg-purple-600 hover:bg-purple-700 text-white border-0 gap-2">
-                <PlusCircle className="h-4 w-4" />
-                Create Timer
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="bg-gray-900 border border-gray-800 text-white">
-              <DialogHeader>
-                <DialogTitle className="text-white">Create New Timer</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 py-4">
-                <div className="space-y-2">
-                  <Label htmlFor="timer-name" className="text-gray-300">
-                    Timer Name
-                  </Label>
-                  <Input
-                    id="timer-name"
-                    placeholder="e.g., Coding, Reading, Exercise"
-                    value={newTimerName}
-                    onChange={(e) => setNewTimerName(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") createTimer()
-                    }}
-                    className="bg-gray-800 border-gray-700 text-white"
-                  />
-                </div>
-                <Button onClick={createTimer} className="w-full bg-purple-600 hover:bg-purple-700 text-white border-0">
-                  Create Timer
-                </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </div>
-      </header> */}
-      <Navbar/>
+    <div className="min-h-screen bg-gray-950 text-white bg-background dot-pattern">
+      <Navbar />
 
       <main className="container max-w-5xl mx-auto p-4 py-8">
-        <AnimatePresence mode="wait">
-          {timers.length === 0 ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <EmptyState onCreateClick={() => setIsDialogOpen(true)} />
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
-              {/* <AnimatePresence>
-                {timers.map((timer) => (
-                  <motion.div
-                    key={timer.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <TimerCard
-                      timer={timer}
-                      onStart={() => startTimer(timer.id)}
-                      onPause={() => pauseTimer(timer.id)}
-                      onReset={() => resetTimer(timer.id)}
-                      onDelete={() => deleteTimer(timer.id)}
-                    />
-                  </motion.div>
-                ))}
-              </AnimatePresence> */}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <StopTimer timers={timers} />
       </main>
     </div>
   );

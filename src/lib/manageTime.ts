@@ -54,6 +54,11 @@ export const createTimer = (newTimerName: string): void => {
   localStorage.setItem("timers", JSON.stringify(newTimes));
 };
 
+
+const setTimes = (timers: Timer[]): void => {
+  localStorage.setItem("timers", JSON.stringify([...timers]));
+};
+
 export const startTimer = (id: string): void => {
     const timers: Timer[] = getTimers();
 
@@ -115,6 +120,7 @@ const manageTime = {
     pauseTimer,
     resetTimer, 
     deleteTimer,
+    setTimes
 };
 
 export default manageTime
