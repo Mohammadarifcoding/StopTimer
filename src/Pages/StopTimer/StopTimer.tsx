@@ -11,7 +11,7 @@ import { access } from '@/app/page';
 
 
 
-const StopTimer = ({timers, access}: {timers: Timer[], access :access }) => {
+const StopTimer = ({timers, access ,createTime}: {timers: Timer[], access :access , createTime: (name: string) => void}) => {
 
       // Update running timers every second
 
@@ -25,7 +25,7 @@ const StopTimer = ({timers, access}: {timers: Timer[], access :access }) => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <EmptyState  />
+              <EmptyState createTime={createTime}  />
             </motion.div>
           ) : (
             <motion.div

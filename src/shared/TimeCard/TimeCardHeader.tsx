@@ -11,8 +11,8 @@ interface Props {
 
 export default function TimeCardHeader ({ name, onReset, onDeleteTrigger }: Props) {
   return (
-    <div className="mb-4">
-      <div className="flex justify-between items-start mt-5">
+    <div className="sm:mb-4 mb-0">
+      <div className="flex justify-between items-start sm:mt-5 mt-0">
         <h3 className="text-lg font-medium truncate text-white" title={name}>{name}</h3>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

@@ -28,23 +28,26 @@ export default function TimerCard({ timer, onStart, onPause, onReset, onDelete }
 
   return (
      <Card className="overflow-hidden bg-gray-900 border-gray-800 hover:border-gray-700 transition-all duration-300 shadow-md w-full max-w-sm mx-auto">
-      <div className={`h-1.5 w-full ${timer.color}`}></div>
+      <div className={`sm:block hidden h-1.5 w-full ${timer.color}`}></div>
       <div className="p-4 sm:p-5">
         <TimeCardHeader
           name={timer.name}
           onReset={onReset}
           onDeleteTrigger={() => setShowDeleteAlert(true)}
         />
-
-        <TimerDisplay hours={hours} minutes={minutes} seconds={seconds} isRunning={timer.isRunning} />
-
-        <TimerControls
+        <div className="flex items-center justify-between ">
+ <TimerDisplay hours={hours} minutes={minutes} seconds={seconds} isRunning={timer.isRunning} />
+ <TimerControls
           isRunning={timer.isRunning}
           onPause={onPause}
           onStart={onStart}
           onReset={onReset}
           color={timer.color}
         />
+        </div>
+       
+
+       
          {
           timer.isRunning && <TimerStatus />
 

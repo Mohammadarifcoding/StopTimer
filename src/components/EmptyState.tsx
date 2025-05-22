@@ -5,7 +5,7 @@ import { Clock, PlusCircle } from 'lucide-react';
 import CreateTimer from '../shared/Create/CreateTimer';
 
 
-export default function EmptyState() {
+export default function EmptyState({createTime}:{createTime:(name:string)=>void}) {
   return (
     <div className="flex flex-col items-center justify-center py-16 px-4 border-2 border-dashed border-gray-800 rounded-xl bg-gray-900">
       <motion.div
@@ -38,11 +38,11 @@ export default function EmptyState() {
       </motion.p>
 
       <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}>
-        <CreateTimer>
+        <CreateTimer createTime={createTime}>
 
           <Button
-
-            className="bg-purple-600 hover:bg-purple-700 text-white border-0 gap-2 px-6 py-6 text-lg"
+           
+            className="bg-purple-600 cursor-pointer hover:bg-purple-700 text-white border-0 gap-2 px-6 py-6 text-lg"
           >
             <PlusCircle className="h-5 w-5" />
             Create Your First Timer

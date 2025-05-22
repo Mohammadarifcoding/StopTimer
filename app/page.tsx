@@ -151,8 +151,8 @@ export default function Home() {
     <div className="min-h-screen bg-gray-950 text-white bg-background dot-pattern">
       <Navbar createTime={createTimer} />
 
-      <main className="container max-w-5xl mx-auto p-4 py-8">
-        <StopTimer access={timerAcessibility}  timers={timers} />
+      <main className="container max-w-5xl mx-auto sm:p-4 p-2 py-8">
+        <StopTimer  createTime={createTimer} access={timerAcessibility}  timers={timers} />
       </main>
     </div>
   );
