@@ -60,82 +60,82 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
-  const createTimer = () => {
-    if (!newTimerName.trim()) {
-      toast({
-        title: "Timer name required",
-        description: "Please enter a name for your timer",
-        variant: "destructive",
-      })
-      return
-    }
+  // const createTimer = () => {
+  //   if (!newTimerName.trim()) {
+  //     toast({
+  //       title: "Timer name required",
+  //       description: "Please enter a name for your timer",
+  //       variant: "destructive",
+  //     })
+  //     return
+  //   }
 
-    const newTimer: Timer = {
-      id: Date.now().toString(),
-      name: newTimerName.trim(),
-      createdAt: new Date().toISOString(),
-      elapsedTime: 0,
-      isRunning: false,
-      color: getRandomColor(),
-    }
+  //   const newTimer: Timer = {
+  //     id: Date.now().toString(),
+  //     name: newTimerName.trim(),
+  //     createdAt: new Date().toISOString(),
+  //     elapsedTime: 0,
+  //     isRunning: false,
+  //     color: getRandomColor(),
+  //   }
 
-    setTimers([...timers, newTimer])
-    setNewTimerName("")
-    setIsDialogOpen(false)
+  //   setTimers([...timers, newTimer])
+  //   setNewTimerName("")
+  //   setIsDialogOpen(false)
 
-    toast({
-      title: "Timer created",
-      description: `"${newTimerName}" has been added to your timers`,
-    })
-  }
+  //   toast({
+  //     title: "Timer created",
+  //     description: `"${newTimerName}" has been added to your timers`,
+  //   })
+  // }
 
-  const startTimer = (id: string) => {
-    setTimers(
-      timers.map((timer) => {
-        if (timer.id === id) {
-          return { ...timer, isRunning: true }
-        }
-        return timer
-      }),
-    )
-  }
+  // const startTimer = (id: string) => {
+  //   setTimers(
+  //     timers.map((timer) => {
+  //       if (timer.id === id) {
+  //         return { ...timer, isRunning: true }
+  //       }
+  //       return timer
+  //     }),
+  //   )
+  // }
 
-  const pauseTimer = (id: string) => {
-    setTimers(
-      timers.map((timer) => {
-        if (timer.id === id) {
-          return { ...timer, isRunning: false }
-        }
-        return timer
-      }),
-    )
-  }
+  // const pauseTimer = (id: string) => {
+  //   setTimers(
+  //     timers.map((timer) => {
+  //       if (timer.id === id) {
+  //         return { ...timer, isRunning: false }
+  //       }
+  //       return timer
+  //     }),
+  //   )
+  // }
 
-  const resetTimer = (id: string) => {
-    setTimers(
-      timers.map((timer) => {
-        if (timer.id === id) {
-          return { ...timer, elapsedTime: 0, isRunning: false }
-        }
-        return timer
-      }),
-    )
-  }
+  // const resetTimer = (id: string) => {
+  //   setTimers(
+  //     timers.map((timer) => {
+  //       if (timer.id === id) {
+  //         return { ...timer, elapsedTime: 0, isRunning: false }
+  //       }
+  //       return timer
+  //     }),
+  //   )
+  // }
 
-  const deleteTimer = (id: string) => {
-    const timerToDelete = timers.find((timer) => timer.id === id)
-    setTimers(timers.filter((timer) => timer.id !== id))
+  // const deleteTimer = (id: string) => {
+  //   const timerToDelete = timers.find((timer) => timer.id === id)
+  //   setTimers(timers.filter((timer) => timer.id !== id))
 
-    toast({
-      title: "Timer deleted",
-      description: `"${timerToDelete?.name}" has been removed`,
-    })
-  }
+  //   toast({
+  //     title: "Timer deleted",
+  //     description: `"${timerToDelete?.name}" has been removed`,
+  //   })
+  // }
 
-  const getRandomColor = () => {
-    const colors = ["bg-purple-600", "bg-blue-600", "bg-teal-600", "bg-amber-600", "bg-rose-600", "bg-indigo-600"]
-    return colors[Math.floor(Math.random() * colors.length)]
-  }
+  // const getRandomColor = () => {
+  //   const colors = ["bg-purple-600", "bg-blue-600", "bg-teal-600", "bg-amber-600", "bg-rose-600", "bg-indigo-600"]
+  //   return colors[Math.floor(Math.random() * colors.length)]
+  // }
 
   return (
 
@@ -202,7 +202,7 @@ export default function Home() {
               transition={{ duration: 0.3 }}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
-              <AnimatePresence>
+              {/* <AnimatePresence>
                 {timers.map((timer) => (
                   <motion.div
                     key={timer.id}
@@ -220,7 +220,7 @@ export default function Home() {
                     />
                   </motion.div>
                 ))}
-              </AnimatePresence>
+              </AnimatePresence> */}
             </motion.div>
           )}
         </AnimatePresence>

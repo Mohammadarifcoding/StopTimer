@@ -3,6 +3,7 @@ import Logo from "../Logo";
 import { Dialog } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
+import CreateTimer from "../Create/CreateTimer";
 
 const Navbar = () => {
   return (
@@ -12,11 +13,15 @@ const Navbar = () => {
           <Logo />
           <h1 className="text-xl font-bold text-white">StopTimer</h1>
         </div>
+         <CreateTimer>
 
-        <Button className="bg-purple-600 hover:bg-purple-700 text-white border-0 gap-2">
+  <Button className="bg-purple-600 hover:bg-purple-700 text-white border-0 gap-2">
           <PlusCircle className="h-4 w-4" />
           New
         </Button>
+
+         </CreateTimer>
+      
       </div>
     </header>
   );
