@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Clock, PlusCircle } from 'lucide-react';
+import CreateTimer from '../shared/Create/CreateTimer';
 
 interface EmptyStateProps {
   onCreateClick: () => void
@@ -41,13 +42,15 @@ export default function EmptyState({ onCreateClick }: EmptyStateProps) {
       </motion.p>
 
       <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}>
-        <Button
-          onClick={onCreateClick}
-          className="bg-purple-600 hover:bg-purple-700 text-white border-0 gap-2 px-6 py-6 text-lg"
-        >
-          <PlusCircle className="h-5 w-5" />
-          Create Your First Timer
-        </Button>
+        <CreateTimer>
+
+          <Button
+            className="bg-purple-600 hover:bg-purple-700 text-white border-0 gap-2 px-6 py-6 text-lg"
+          >
+            <PlusCircle className="h-5 w-5" />
+            Create Your First Timer
+          </Button>
+        </CreateTimer>
       </motion.div>
     </div>
   )

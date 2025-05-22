@@ -3,6 +3,7 @@ const getTimers = () => {
   if (timers) {
     return JSON.parse(timers);
   }
+
   return [];
 };
 
@@ -27,26 +28,31 @@ interface Timer {
     color: string;
 }
 
-export const createTimer = (
-    newTimerName: string,
-): void => {
-    const times: Timer[] = getTimers();
+export const createTimer = (newTimerName: string): void => {
+  const times: Timer[] = getTimers();
+  console.log("Existing Timers:", times); // 👀 See what's already in localStorage
 
-    const newTimes: Timer[] = [
-        ...times,
-        {
-            id: Date.now().toString(),
-            name: newTimerName.trim(),
-            createdAt: new Date().toISOString(),
-            elapsedTime: 0,
-            isRunning: false,
-            color: getRandomColor(),
-        },
-    ];
+  const trimmedName = newTimerName.trim();
+  if (!trimmedName) {
+    console.warn("Timer name is empty. Skipping creation.");
+    return;
+  }
 
-    localStorage.setItem("timers", JSON.stringify(newTimes));
+  const newTimes: Timer[] = [
+    ...times,
+    {
+      id: Date.now().toString(),
+      name: trimmedName,
+      createdAt: new Date().toISOString(),
+      elapsedTime: 0,
+      isRunning: false,
+      color: getRandomColor(),
+    },
+  ];
+
+  console.log("New Timers:", newTimes);
+  localStorage.setItem("timers", JSON.stringify(newTimes));
 };
-
 
 export const startTimer = (id: string): void => {
     const timers: Timer[] = getTimers();

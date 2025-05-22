@@ -25,40 +25,40 @@ export default function Home() {
   const { toast } = useToast()
 
   // Load timers from localStorage on initial render
-  useEffect(() => {
-    const savedTimers = localStorage.getItem("timers")
-    if (savedTimers) {
-      try {
-        setTimers(JSON.parse(savedTimers))
-      } catch (error) {
-        console.error("Failed to parse saved timers", error)
-      }
-    }
-  }, [])
+  // useEffect(() => {
+  //   const savedTimers = localStorage.getItem("timers")
+  //   if (savedTimers) {
+  //     try {
+  //       setTimers(JSON.parse(savedTimers))
+  //     } catch (error) {
+  //       console.error("Failed to parse saved timers", error)
+  //     }
+  //   }
+  // }, [])
 
-  // Save timers to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem("timers", JSON.stringify(timers))
-  }, [timers])
+  // // Save timers to localStorage whenever they change
+  // useEffect(() => {
+  //   localStorage.setItem("timers", JSON.stringify(timers))
+  // }, [timers])
 
-  // Update running timers every second
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimers((currentTimers) =>
-        currentTimers.map((timer) => {
-          if (timer.isRunning) {
-            return {
-              ...timer,
-              elapsedTime: timer.elapsedTime + 1000,
-            }
-          }
-          return timer
-        }),
-      )
-    }, 1000)
+  // // Update running timers every second
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setTimers((currentTimers) =>
+  //       currentTimers.map((timer) => {
+  //         if (timer.isRunning) {
+  //           return {
+  //             ...timer,
+  //             elapsedTime: timer.elapsedTime + 1000,
+  //           }
+  //         }
+  //         return timer
+  //       }),
+  //     )
+  //   }, 1000)
 
-    return () => clearInterval(interval)
-  }, [])
+  //   return () => clearInterval(interval)
+  // }, [])
 
   // const createTimer = () => {
   //   if (!newTimerName.trim()) {
